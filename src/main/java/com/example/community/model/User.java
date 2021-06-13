@@ -1,4 +1,4 @@
-package model;
+package com.example.community.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,4 +14,8 @@ public class User {
     private String token;
     private Long gmtCreate;
     private Long gmtModified;
+    private Integer creator;
+    private Integer viewCount;
+    private Integer likeCount;
+    private Integer commentCount;
 }

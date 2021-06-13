@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ask A Question - Springboot Community</title>
+    <!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Springboot Community</span>
+            </button>
+            <a class="navbar-brand" href="#">Springboot Community</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search Questions">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${session.user == null}">
+                    <a href="/publish">PUBLISH</a>
+                </li>
+                <li class="dropdown" th:if="${session.user != null}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false"
+                       th:text="${session.user.getName()}">
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Messages Center</a></li>
+                        <li><a href="#">Information</a></li>
+                        <li><a href="#">Log out</a></li>
+                    </ul>
+                </li>
+                <li th:if="${session.user == null}">
+                    <a href="https://github.com/login/oauth/authorize?client_id=de95a834c9e22c8025f2&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
+                        Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"> Init </span></h2>
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" th:value="${title}" id="title" name="title" placeholder="Enter Title...">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" th:value="${description}" class="form-control" cols="30" rows="10"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">Tag</label>
+                    <input type="text" class="form-control" th:value="${tag}" id="tag" name="tag" placeholder="Enter Tag...">
+                </div>
+
+                <div class="container-fluid main">
+                    <div class="row">
+                        <span class="alert alert-danger col-lg-9 col-md-12 col-sm-12 col-xs-12" th:text="${error}" th:if="${error} != null"></span>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+        <h3>问题发起指南</h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>
