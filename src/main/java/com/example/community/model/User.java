@@ -12,10 +12,11 @@ public class User {
     private String name;
     private String accountId;
     private String token;
-    private Long gmtCreate;
+    private Long gmtCreate; // LocalDateTime -> Timestamp
     private Long gmtModified;
     private Integer creator;
     private Integer viewCount;
     private Integer likeCount;
     private Integer commentCount;
+    private String avatarUrl;
 }

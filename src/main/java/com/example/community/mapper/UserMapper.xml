@@ -5,12 +5,15 @@
 
 <mapper namespace="com.example.community.mapper.UserMapper">
     <insert id="insert" parameterType="User">
-        insert into user (name, account_id, token, gmt_create, gmt_modified)
-        values (#{name}, #{accountId}, #{token}, #{gmtCreate}, #{gmtModified})
+        insert into user (name, account_id, token, gmt_create, gmt_modified, avatar_url)
+        values (#{name}, #{accountId}, #{token}, #{gmtCreate}, #{gmtModified}, #{avatarUrl})
     </insert>
 
     <select id="findByToken" resultType="User">
         select * from user where token = #{token}
     </select>
 
+    <select id="findById" resultType="User">
+        select * from user where id = #{id}
+    </select>
 </mapper>

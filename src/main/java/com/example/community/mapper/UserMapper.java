@@ -12,4 +12,6 @@ public interface UserMapper {
     void insert(User user);
 
     User findByToken(@Param("token") String token);
+
+    User findById(@Param("id") Integer id);
 }
