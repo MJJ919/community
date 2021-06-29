@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.community.mapper.CommentMapper">
+    <insert id="create" parameterType="comment">
+        insert into comment(parent_id, content, type, gmt_create, gmt_modified, commentator)
+        values (#{parentId}, #{content}, #{type}, #{gmtCreate}, #{gmtModified}, #{commentator})
+    </insert>
+</mapper>

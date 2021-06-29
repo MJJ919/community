@@ -2,6 +2,8 @@ package com.example.community.service;
 
 import com.example.community.dto.PaginationDTO;
 import com.example.community.dto.QuestionDTO;
+import com.example.community.exception.CustomizeErrorCode;
+import com.example.community.exception.CustomizeException;
 import com.example.community.mapper.QuestionMapper;
 import com.example.community.mapper.UserMapper;
 import com.example.community.model.Question;
@@ -85,6 +87,9 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.getById(id);
+        if (question==null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         User user = userMapper.findById(question.getCreator());
         questionDTO.setUser(user);
@@ -99,7 +104,17 @@ public class QuestionService {
             questionMapper.create(question);
         }else{
             question.setGmtCreate(System.currentTimeMillis());
-            questionMapper.update(question);
+            int updated = questionMapper.update(question);
+            if (updated != 1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
+    }
+
+    public void incView(Integer id) {
+        Question question = questionMapper.getById(id);
+        question.setId(id);
+        question.setViewCount(1);
+        questionMapper.incView(question);
     }
 }
